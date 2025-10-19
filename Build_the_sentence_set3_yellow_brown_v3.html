@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Kru Pai Classroom – Build the Sentence (Set 3 · Yellow–Brown · v3)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --base: 1; /* font scale */
+  --yellow:#FFD966; --yellow-soft:#FFF3BF; --brown:#8B5E34; --brown-deep:#5D3A1A;
+  --ink:#2b2b2b; --bg:#FFF8E6; --accent:#F4C430; --green:#14833b; --red:#b3261e;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+  font-family:"Noto Sans Thai",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  font-size: calc(16px * var(--base));
+}
+.wrap{min-height:100svh;display:grid;place-items:center;padding:18px}
+.header{
+  width:100%;display:flex;justify-content:center;position:sticky;top:0;z-index:100;
+}
+.banner{
+  width:min(100%,1100px);
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  background:linear-gradient(90deg,var(--yellow),#ffe991);
+  border-bottom:4px solid var(--brown);
+  padding:10px 14px; box-shadow:0 6px 16px rgba(93,58,26,.15);
+}
+.logo{
+  font-weight:900; letter-spacing:.5px; color:#3a2a16;
+  font-size: clamp(20px, 3.2vw, 32px);
+}
+.size-ctrl button{
+  appearance:none;border:none;border-radius:10px;padding:6px 10px;font-weight:900;cursor:pointer;
+  background:linear-gradient(180deg,#b3866a,var(--brown)); color:#fff; box-shadow:0 4px 0 #6b4423;
+}
+.card{width:min(100%,1100px);background:linear-gradient(135deg,var(--yellow-soft),#fff);
+  border:8px solid var(--yellow);border-radius:28px;padding:24px;position:relative;
+  box-shadow:0 14px 30px rgba(93,58,26,.18), inset 0 0 0 3px rgba(255,217,102,.4)}
+.brand{position:absolute;right:16px;bottom:12px;opacity:.22;font-weight:900;color:var(--brown-deep);font-size:14px}
+h1.title{margin:0 0 6px 0;font-size:clamp(28px,4.6vw,48px);line-height:1.04;color:var(--brown-deep)}
+.subtitle{margin:0 0 16px 0;color:#6b4423;font-size:clamp(16px,2.6vw,22px)}
+.hero{display:flex;gap:14px;align-items:center;margin:6px 0 18px 0}
+.bunny{width:90px;height:90px;border-radius:18px;display:grid;place-items:center;font-size:52px;background:radial-gradient(#fff 0 40%, #f5e9d7 41% 100%);border:3px solid var(--yellow)}
+.input{width:100%;padding:14px;border-radius:14px;border:2px solid var(--brown);font-size:18px;background:#fff}
+.btn{appearance:none;border:none;cursor:pointer;border-radius:16px;padding:14px 22px;font-weight:900;letter-spacing:.3px;
+  color:#3a2a16;background:linear-gradient(180deg,var(--accent),var(--yellow));box-shadow:0 8px 0 #e0b62a, 0 10px 24px rgba(93,58,26,.25)}
+.btn:disabled{opacity:.5;filter:grayscale(.3);cursor:not-allowed;transform:none;box-shadow:0 8px 0 #e0b62a}
+.btn:hover:not(:disabled){transform:translateY(-2px)} .btn:active:not(:disabled){transform:translateY(2px)}
+.btn.secondary{color:#fff;background:linear-gradient(180deg,#b3866a,var(--brown));box-shadow:0 8px 0 #6b4423, 0 10px 24px rgba(93,58,26,.25)}
+.pill{display:inline-block;background:var(--brown);color:#fff;padding:6px 14px;border-radius:999px;font-weight:700}
+.grid2{display:grid;grid-template-columns:1fr;gap:16px} @media(min-width:860px){.grid2{grid-template-columns:1fr 1fr}}
+.ebook{background:#fff;border:2px solid var(--yellow);border-radius:22px;padding:18px;box-shadow:0 10px 18px rgba(93,58,26,.08)}
+.tag{font-weight:900;color:#fff;background:var(--brown);padding:6px 12px;border-radius:10px;display:inline-block;margin-bottom:10px}
+.hl{background:linear-gradient(180deg,rgba(255,217,102,.2),rgba(255,217,102,.65));border-radius:6px;padding:0 6px}
+.rule{border-left:8px solid var(--accent);padding:10px 12px;border-radius:10px;background:#fff;margin:10px 0;color:#5a4630}
+.table{width:100%;border-collapse:separate;border-spacing:0 10px}
+.table th,.table td{background:#fff;border:2px solid var(--yellow);padding:10px 12px;border-radius:12px;text-align:left}
+.ex{font-weight:700;color:var(--brown-deep)}
+.center{text-align:center}
+.score-box{background:linear-gradient(180deg,var(--yellow),#ffe991);border:4px solid var(--brown);border-radius:20px;padding:10px 14px;display:inline-block;font-weight:900;color:#3a2a16}
+/* Game */
+.qbox{background:#fff;border:3px solid var(--yellow);border-radius:20px;padding:14px;margin:14px 0}
+.q-title{font-weight:900;color:var(--brown-deep);font-size:20px;margin-bottom:8px}
+.tray, .slots{display:flex;flex-wrap:wrap;gap:10px;min-height:52px;padding:10px;border:2px dashed var(--brown);border-radius:14px;background:linear-gradient(180deg,#fff,#fffaf0)}
+.tile{border:2px solid var(--brown);border-radius:14px;padding:8px 12px;background:#fff;font-weight:800;cursor:pointer;user-select:none;box-shadow:0 4px 0 #e0b62a}
+.tile.used{opacity:.45;pointer-events:none;filter:grayscale(.4)}
+.slot{min-width:48px;padding:8px 12px;border:2px dashed var(--yellow);border-radius:12px;background:#fff;font-weight:800;text-align:center}
+.slot.filled{border-style:solid;border-color:var(--brown)}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.note{opacity:.8}
+.status{font-weight:900;margin-top:6px}
+.good{color:var(--green)} .bad{color:var(--red)}
+/* Celebration overlay persists until Next */
+#celebrate{position:fixed;inset:0;pointer-events:none;display:none;align-items:center;justify-content:center;z-index:60}
+#wow{font-weight:900;font-size:76px;color:#ffca28;text-shadow:0 4px 0 #8c5a1e,0 0 22px rgba(255,202,40,.7);}
+#emojis{position:absolute;inset:0}
+.emo{position:absolute;font-size:34px;animation:float 2400ms ease-in-out infinite}
+@keyframes float{
+  0%{transform:translateY(0)} 50%{transform:translateY(-16px)} 100%{transform:translateY(0)}
+}
+/* Review modal */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;padding:14px;z-index:50}
+.modal .inner{width:min(100%,980px);background:#fff;border:6px solid var(--yellow);border-radius:24px;padding:16px;max-height:90svh;overflow:auto}
+.modal h2{margin:6px 0 10px 0}
+.headerbar{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:6px}
+.progress{font-weight:900}
+.small{font-size:12px;opacity:.8}
+.lock{pointer-events:none; filter:grayscale(.35); opacity:.7}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="banner">
+    <div class="logo">Kru Pai Classroom</div>
+    <div class="size-ctrl">
+      <button onclick="resize(-0.1)">A−</button>
+      <button onclick="resize(0.1)">A+</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <!-- Start Page -->
+  <div class="card" id="page-start">
+    <div class="hero">
+      <div class="bunny">🐰</div>
+      <div>
+        <h1 class="title">Build the Sentence – Set 3 (Present vs Continuous)</h1>
+        <p class="subtitle">โทน <span class="hl">เหลือง–น้ำตาล</span> สไตล์ Kru Pai Classroom • เวอร์ชันมี “ช่องเติมคำ”</p>
+        <span class="pill">ใส่ชื่อเล่นก่อน แล้วเริ่มทบทวนกันเลย</span>
+      </div>
+    </div>
+    <div class="grid2">
+      <div>
+        <label>ชื่อเล่นนักเรียน</label>
+        <input id="nickname" class="input" placeholder="เช่น Mint, Boss, Beam"/>
+        <div style="height:12px"></div>
+        <button class="btn" onclick="goReview1()">เริ่มทบทวน Present 👉</button>
+      </div>
+      <div class="ebook">
+        <div class="tag">แนวทางการเล่น</div>
+        <ul>
+          <li>อ่านสรุป <b>Present</b> และ <b>Present Continuous</b> พร้อมตัวอย่างเพิ่ม</li>
+          <li>เกม: เติมคำให้ครบทุกช่องก่อนกดตรวจ (มีกล่องคำหลอกด้วย)</li>
+          <li>ตอบถูก = ฉลองใหญ่ 🎉 อิโมจิจะอยู่บนจอจนกด “ข้อต่อไป”</li>
+          <li>ตอบผิด 3 ครั้ง → เฉลยอัตโนมัติ และข้อนั้นจะล็อก</li>
+        </ul>
+        <div class="small">* มีลายน้ำ “Kru Pai Classroom” ทุกหน้า (กันก็อป + ทำแบรนด์)</div>
+      </div>
+    </div>
+    <div class="brand">Kru Pai Classroom</div>
+  </div>
+
+  <!-- Review 1: Present -->
+  <div class="card" id="page-r1" style="display:none">
+    <div class="hero">
+      <div class="bunny">📘</div>
+      <div>
+        <h1 class="title">Present Tense – ใช้เมื่อไร?</h1>
+        <p class="subtitle">ข้อเท็จจริง • นิสัย/กิจวัตร • ตารางเวลา • ความจริงทั่วไป</p>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="ebook">
+        <div class="tag">โครงสร้าง</div>
+        <table class="table">
+          <tr><th>บอกเล่า</th><td class="ex">Subject + <b>V1</b> (+s/es)</td></tr>
+          <tr><th>ปฏิเสธ</th><td class="ex">Subject + <b>do/does</b> + not + V1</td></tr>
+          <tr><th>คำถาม</th><td class="ex"><b>Do/Does</b> + Subject + V1 ?</td></tr>
+        </table>
+        <div class="rule"><b>คำบอกเวลา</b>: always, usually, often, sometimes, never, every day/week, on Mondays</div>
+      </div>
+      <div class="ebook">
+        <div class="tag">ตัวอย่างเพิ่ม (ชัด ๆ สำนวนไทยคุ้น)</div>
+        <ul>
+          <li>I <b>eat rice for breakfast</b> every morning.</li>
+          <li>She <b>plays</b> piano every day.</li>
+          <li>The bus <b>leaves</b> at 7 a.m.</li>
+          <li>He <b>doesn’t like</b> coffee.</li>
+          <li><b>Do</b> you <b>read</b> books?</li>
+        </ul>
+        <div class="center"><button class="btn secondary" onclick="goReview2()">ต่อไป: Present Continuous ➜</button></div>
+      </div>
+    </div>
+    <div class="brand">Kru Pai Classroom</div>
+  </div>
+
+  <!-- Review 2: Present Continuous -->
+  <div class="card" id="page-r2" style="display:none">
+    <div class="hero">
+      <div class="bunny">📙</div>
+      <div>
+        <h1 class="title">Present Continuous – ใช้เมื่อไร?</h1>
+        <p class="subtitle">กำลังกระทำตอนนี้ • กำลังดำเนินช่วงนี้ • แผนชั่วคราว</p>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="ebook">
+        <div class="tag">โครงสร้าง</div>
+        <table class="table">
+          <tr><th>บอกเล่า</th><td class="ex">Subject + <b>am/is/are</b> + <b>V‑ing</b></td></tr>
+          <tr><th>ปฏิเสธ</th><td class="ex">Subject + am/is/are + <b>not</b> + V‑ing</td></tr>
+          <tr><th>คำถาม</th><td class="ex"><b>Am/Is/Are</b> + Subject + V‑ing ?</td></tr>
+        </table>
+        <div class="rule"><b>คำบอกเวลา</b>: now, right now, at the moment, today, this week</div>
+      </div>
+      <div class="ebook">
+        <div class="tag">ตัวอย่างเพิ่ม (ชัด ๆ)</div>
+        <ul>
+          <li>I <b>am texting</b> you now.</li>
+          <li>We <b>are doing</b> a project this week.</li>
+          <li>They <b>are staying</b> with Grandma today.</li>
+          <li>State verbs (มักไม่ใช้ -ing): know, like, love, believe</li>
+        </ul>
+        <div class="center"><button class="btn" onclick="goGame()">พร้อมแล้ว เริ่มเล่นเกม 👉</button></div>
+      </div>
+    </div>
+    <div class="brand">Kru Pai Classroom</div>
+  </div>
+
+  <!-- Game -->
+  <div class="card" id="page-game" style="display:none">
+    <div class="headerbar">
+      <div class="hero" style="margin:0">
+        <div class="bunny">🧩</div>
+        <div>
+          <h1 class="title" style="font-size:28px;margin:0">Build the Sentence</h1>
+          <div class="subtitle" style="margin:0">ผู้เล่น: <b id="show-name">-</b></div>
+        </div>
+      </div>
+      <div>
+        <div class="progress">ข้อ <span id="cur">1</span>/<span id="tot">20</span> · คะแนน <span id="score">0</span></div>
+        <div class="small">ลืมทฤษฎี? <button class="btn secondary" onclick="openReview()">ย้อนอ่านสรุป</button></div>
+      </div>
+    </div>
+
+    <div class="qbox">
+      <div class="q-title" id="qth">–</div>
+
+      <div class="note"><b>ช่องประโยคที่กำลังสร้าง:</b> (เลือกให้ครบ <span id="need">0</span>/<span id="needTot">0</span>)</div>
+      <div class="slots" id="slots"></div>
+
+      <div class="note" style="margin-top:8px"><b>ถาดคำ:</b> (แตะเพื่อเติมคำ)</div>
+      <div class="tray" id="tray"></div>
+
+      <div class="controls">
+        <button class="btn" id="btnCheck" onclick="check()" disabled>ตรวจคำตอบ ✅</button>
+        <button class="btn secondary" onclick="undo()">ลบคำสุดท้าย ⟲</button>
+        <button class="btn secondary" onclick="clearAns()">ล้างคำทั้งหมด ✦</button>
+      </div>
+      <div class="status" id="status"></div>
+    </div>
+
+    <div class="center">
+      <button class="btn" onclick="next()">ข้อต่อไป ➜</button>
+    </div>
+
+    <div class="brand">Kru Pai Classroom</div>
+  </div>
+
+  <!-- Summary -->
+  <div class="card" id="page-summary" style="display:none">
+    <div class="hero">
+      <div class="bunny">🏁</div>
+      <div>
+        <h1 class="title">สรุปคะแนน</h1>
+        <p class="subtitle">ยอดเยี่ยม <b id="sum-name">-</b> ได้ <b id="sum-score">0</b>/20</p>
+      </div>
+    </div>
+    <div class="center">
+      <div class="score-box" style="font-size:26px">ผลลัพธ์: <span id="remark">–</span></div>
+      <div style="height:12px"></div>
+      <button class="btn" onclick="restart()">กลับหน้าแรก ⟲</button>
+    </div>
+    <div class="brand">Kru Pai Classroom</div>
+  </div>
+</div>
+
+<!-- Review Modal (in-game) -->
+<div class="modal" id="modal">
+  <div class="inner">
+    <div class="headerbar">
+      <h2>สรุปย่อ: Present vs Present Continuous</h2>
+      <button class="btn secondary" onclick="closeReview()">ปิด</button>
+    </div>
+    <div class="grid2">
+      <div class="ebook">
+        <div class="tag">Present</div>
+        <div class="rule"><b>ใช้เมื่อ</b>: ข้อเท็จจริง, นิสัย/กิจวัตร, ตารางเวลา</div>
+        <ul>
+          <li>I <b>eat rice for breakfast</b> every morning.</li>
+          <li>He <b>doesn’t like</b> coffee.</li>
+          <li>Do you <b>read</b> books?</li>
+        </ul>
+      </div>
+      <div class="ebook">
+        <div class="tag">Present Continuous</div>
+        <div class="rule"><b>ใช้เมื่อ</b>: ตอนนี้, ช่วงนี้, แผนชั่วคราว</div>
+        <ul>
+          <li>I <b>am studying</b> now.</li>
+          <li>We <b>are doing</b> a project this week.</li>
+          <li>Are you <b>listening</b>?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Celebration overlay -->
+<div id="celebrate">
+  <div id="wow">WOW! 🎉🤩✨</div>
+  <div id="emojis"></div>
+</div>
+
+<script>
+/* ====== Font size controls ====== */
+function resize(delta){
+  const root = document.documentElement;
+  const cur = parseFloat(getComputedStyle(root).getPropertyValue('--base')) || 1;
+  let next = cur + delta; if(next<0.8) next=0.8; if(next>1.5) next=1.5;
+  root.style.setProperty('--base', next.toString());
+}
+
+/* ====== Audio ====== */
+const beep=(f=880,d=0.12,t='sine')=>{try{const ctx=new (window.AudioContext||window.webkitAudioContext)();
+const o=ctx.createOscillator(), g=ctx.createGain(); o.type=t; o.frequency.value=f; o.connect(g); g.connect(ctx.destination);
+const now=ctx.currentTime; g.gain.setValueAtTime(0.0001,now); g.gain.exponentialRampToValueAtTime(0.2,now+0.01);
+g.gain.exponentialRampToValueAtTime(0.00001,now+d); o.start(); o.stop(now+d+0.01);}catch(e){}};
+const sOK=()=>beep(1200,0.12,'triangle'); const sNG=()=>beep(220,0.16,'sawtooth');
+
+/* ====== Celebration (persistent) ====== */
+function showCelebration(){
+  const layer=document.getElementById('celebrate');
+  const box=document.getElementById('emojis');
+  box.innerHTML='';
+  const pool=['🎉','✨','🤩','🌟','👏','🎊','🧠','👍','💫','🎈'];
+  for(let i=0;i<36;i++){
+    const e=document.createElement('div'); e.className='emo';
+    e.textContent=pool[Math.floor(Math.random()*pool.length)];
+    const x=Math.random()*100, y=Math.random()*100;
+    e.style.left=x+'%'; e.style.top=y+'%'; e.style.animationDelay=(Math.random()*1.2)+'s';
+    box.appendChild(e);
+  }
+  layer.style.display='flex';
+}
+function hideCelebration(){
+  const layer=document.getElementById('celebrate');
+  layer.style.display='none';
+}
+
+/* ====== Navigation ====== */
+let nickname='';
+function goReview1(){nickname=(document.getElementById('nickname').value||'นักเรียนคนเก่ง').trim();
+  document.getElementById('page-start').style.display='none'; document.getElementById('page-r1').style.display='block';}
+function goReview2(){document.getElementById('page-r1').style.display='none'; document.getElementById('page-r2').style.display='block';}
+function goGame(){document.getElementById('page-r2').style.display='none'; document.getElementById('page-game').style.display='block';
+  document.getElementById('show-name').textContent=nickname; setup();}
+function openReview(){document.getElementById('modal').style.display='flex'} function closeReview(){document.getElementById('modal').style.display='none'}
+
+/* ====== Data (20) ====== */
+const DATA=[
+ {th:"ฉันทานข้าวเช้าทุกเช้า (สำนวนชัดเจน)", ans:["I","eat","rice","for","breakfast","every","morning","."], distract:["am","eats","eating","the","today","now"]},
+ {th:"ตอนนี้เธอกำลังวิ่ง", ans:["She","is","running","now","."], distract:["run","runs","are","do","does"]},
+ {th:"พวกเขาไม่ชอบกาแฟ", ans:["They","don't","like","coffee","."], distract:["are","is","likes","liking","an"]},
+ {th:"เขากำลังอ่านหนังสืออยู่", ans:["He","is","reading","a","book","."], distract:["reads","are","does","do","books"]},
+ {th:"ร้านเปิด 10 โมงเช้า (ตารางเวลา)", ans:["The","shop","opens","at","10","a.m.","."], distract:["is","opening","now","are","open"]},
+ {th:"ตอนนี้เรากำลังกินข้าว", ans:["We","are","eating","rice","now","."], distract:["eat","eats","is","do","does"]},
+ {th:"เธอไม่ค่อยกินขนมหวาน", ans:["She","doesn't","eat","sweets","often","."], distract:["isn't","eating","sweet","does","are"]},
+ {th:"สัปดาห์นี้ฉันพักที่บ้านป้า", ans:["I","am","staying","at","my","aunt's","house","this","week","."], distract:["stay","stays","are","is","today"]},
+ {th:"คุณอ่านหนังสือทุกคืนไหม", ans:["Do","you","read","every","night","?"], distract:["Are","reading","reads","now","does"]},
+ {th:"ตอนนี้คุณกำลังฟังฉันไหม", ans:["Are","you","listening","to","me","now","?"], distract:["Do","listen","listens","is","are"]},
+ {th:"แมวชอบนม", ans:["Cats","like","milk","."], distract:["are","likes","liking","a","the"]},
+ {th:"น้ำเดือดที่ 100°C (ความจริง)", ans:["Water","boils","at","100°C","."], distract:["is","boiling","now","are","does"]},
+ {th:"พวกเขากำลังรอแท็กซี่", ans:["They","are","waiting","for","a","taxi","."], distract:["wait","waits","is","are","the"]},
+ {th:"เขาเล่นฟุตบอลทุกวันอาทิตย์", ans:["He","plays","football","every","Sunday","."], distract:["is","playing","now","do","are"]},
+ {th:"วันนี้ฉันไม่ได้ทำอาหาร", ans:["I","am","not","cooking","today","."], distract:["don't","cook","cooks","are","is"]},
+ {th:"บัสออก 7 โมงเช้า", ans:["The","bus","leaves","at","7","a.m.","."], distract:["is","leaving","now","are","leave"]},
+ {th:"ตอนนี้เธอกำลังกวาดพื้น", ans:["She","is","sweeping","the","floor","now","."], distract:["sweeps","are","isn't","do","does"]},
+ {th:"เราชอบแมวมาก", ans:["We","love","cats","."], distract:["are","loving","cat","am","is"]},
+ {th:"พวกเขาไม่ได้ดูทีวีอยู่ตอนนี้", ans:["They","are","not","watching","TV","now","."], distract:["don't","watch","watches","is","are"]},
+ {th:"ตอนนี้ครูสอนภาษาอังกฤษอยู่ไหม", ans:["Is","the","teacher","teaching","English","now","?"], distract:["Does","teach","teaches","are","am"]}
+];
+
+/* ====== Game State ====== */
+let idx=0, score=0, used=[], attempts=0;
+let slots=[], trayButtons=[], filled=0, needTotal=0, locked=false;
+
+function setup(){
+  document.getElementById('tot').textContent=DATA.length;
+  idx=0; score=0; used=DATA.map(_=>false);
+  render();
+}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+function render(){
+  const item=DATA[idx];
+  attempts=0; locked=false; hideCelebration();
+  document.getElementById('cur').textContent=idx+1;
+  document.getElementById('qth').textContent=`${idx+1}. ${item.th}`;
+  document.getElementById('status').textContent='';
+  // build slots
+  const slotsEl=document.getElementById('slots'); slotsEl.innerHTML='';
+  slots=[]; filled=0; needTotal=item.ans.length;
+  document.getElementById('need').textContent='0'; document.getElementById('needTot').textContent=needTotal;
+  item.ans.forEach((w,i)=>{
+    const s=document.createElement('span'); s.className='slot'; s.dataset.index=i; s.textContent='…';
+    s.onclick=()=>removeSlot(i); slots.push(s); slotsEl.appendChild(s);
+  });
+  // build tray
+  const tray=[...item.ans, ...item.distract]; shuffle(tray);
+  const trayEl=document.getElementById('tray'); trayEl.innerHTML=''; trayButtons=[];
+  tray.forEach((w,i)=>{
+    const b=document.createElement('button'); b.className='tile'; b.textContent=w; b.onclick=()=>place(b,w);
+    trayEl.appendChild(b); trayButtons.push(b);
+  });
+  updateCheckButton();
+  setLocked(false);
+}
+
+function setLocked(state){
+  locked=state;
+  const area=document.querySelector('.qbox');
+  if(state){
+    area.classList.add('lock');
+    document.getElementById('btnCheck').disabled=true;
+  }else{
+    area.classList.remove('lock');
+  }
+}
+
+function place(btn, word){
+  if(locked) return;
+  const i = slots.findIndex(s=>!s.classList.contains('filled'));
+  if(i===-1) return; // all filled
+  slots[i].classList.add('filled'); slots[i].textContent=word; slots[i].dataset.word=word;
+  btn.classList.add('used'); btn.disabled=true;
+  filled++; document.getElementById('need').textContent=filled;
+  updateCheckButton();
+}
+function removeSlot(i){
+  if(locked) return;
+  const s=slots[i];
+  if(!s.classList.contains('filled')) return;
+  const word=s.dataset.word;
+  const b = trayButtons.find(x=>x.textContent===word && x.disabled);
+  if(b){b.disabled=false; b.classList.remove('used');}
+  s.classList.remove('filled'); s.textContent='…'; s.dataset.word='';
+  filled--; document.getElementById('need').textContent=filled;
+  updateCheckButton();
+}
+function undo(){
+  if(locked) return;
+  for(let i=slots.length-1;i>=0;i--){
+    if(slots[i].classList.contains('filled')){ removeSlot(i); break; }
+  }
+}
+function clearAns(){
+  if(locked) return;
+  for(let i=0;i<slots.length;i++){ if(slots[i].classList.contains('filled')) removeSlot(i); }
+}
+function updateCheckButton(){
+  const btn=document.getElementById('btnCheck');
+  btn.disabled = !(filled===needTotal) || locked;
+}
+
+function norm(arr){return arr.join(' ').replace(/\s+([.?!])/g,'$1')}
+function currentSentence(){return slots.map(s=>s.dataset.word||'').filter(Boolean)}
+
+function revealAnswer(){
+  // fill slots with correct answer and lock
+  const item=DATA[idx];
+  for(let i=0;i<slots.length;i++){
+    const w=item.ans[i];
+    slots[i].classList.add('filled'); slots[i].textContent=w; slots[i].dataset.word=w;
+  }
+  trayButtons.forEach(b=>{b.disabled=true; b.classList.add('used')});
+  setLocked(true);
+}
+
+function check(){
+  if(locked) return;
+  const item=DATA[idx];
+  const got = norm(currentSentence());
+  const ans = norm(item.ans);
+  const st=document.getElementById('status');
+  if(got===ans){
+    if(!used[idx]){score++; used[idx]=true; document.getElementById('score').textContent=score;}
+    st.innerHTML='<span class="good">ถูกต้องจ้า ✔ เยี่ยมมาก!</span>';
+    sOK(); showCelebration();
+    setLocked(true); // lock after correct; wait for Next
+  }else{
+    attempts++;
+    st.innerHTML='<span class="bad">ยังไม่ถูก ลองปรับคำอีกนิดนะ ✍️</span>';
+    sNG();
+    if(attempts>=3){
+      st.innerHTML = '<span class="bad">ครบ 3 ครั้งแล้ว — เฉลยให้เลยนะ ✔</span>';
+      revealAnswer();
+    }
+  }
+}
+function next(){
+  hideCelebration();
+  if(idx<DATA.length-1){ idx++; render(); } else { summary(); }
+}
+
+function summary(){
+  document.getElementById('page-game').style.display='none';
+  document.getElementById('page-summary').style.display='block';
+  document.getElementById('sum-name').textContent=nickname;
+  document.getElementById('sum-score').textContent=score;
+  const r = score>=16 ? 'ผ่าน! เยี่ยมมาก 🎉' : (score>=12 ? 'ใกล้แล้ว สู้ต่อ! 💪' : 'ยังไม่ผ่าน ลองใหม่นะ 🌱');
+  document.getElementById('remark').textContent=r;
+}
+function restart(){
+  document.getElementById('page-summary').style.display='none';
+  document.getElementById('page-start').style.display='block';
+  document.getElementById('nickname').value='';
+}
+</script>
+</body>
+</html>
